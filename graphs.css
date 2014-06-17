@@ -1,0 +1,21 @@
+@import url(http://fonts.googleapis.com/css?family=Lobster); {{ id }} .titles 
+text {
+	font-family: sans-serif;
+	font-size: 20px;
+	text-rendering: geometricPrecision;
+}
+{{ id }} .axis .guide.line {
+	stroke-dasharray: 4,4;
+}
+{{ id }} .axis .major.guide.line {
+	stroke-dasharray: none;
+	stroke: #ccc;
+}
+{{ id }} .axis.y .guides:hover .guide.line, {{ id }} .axis.y2 .guides:hover 
+.guide.line, {{ id }} .axis.x .guides:hover .guide.line {
+	stroke: #b33636;
+}
+{{ id }}.axis .guides text {
+	font-family: sans-serif;
+	stroke: transparent;
+}

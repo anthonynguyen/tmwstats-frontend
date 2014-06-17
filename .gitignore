@@ -1,0 +1,4 @@
+*.pyc
+env/
+db_init.py
+*.swp

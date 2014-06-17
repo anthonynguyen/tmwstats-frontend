@@ -63,7 +63,7 @@ def makeGraph(size, hours, title):
 	plt.fill_between(times, counts, color = "#CC4444")
 	plt.fill_between(times, gms, color = "#445BCC")
 	fig.suptitle(title, fontproperties = prop)
-	plt.xticks([times[0], times[length//4], times[length//2], times[length//4*3]], [timeLabels[0], timeLabels[length//4], timeLabels[length//2], timeLabels[length//4*3]], fontproperties = prop)
+	plt.xticks([times[0], times[length//4], times[length//2], times[length//4*3], times[-1]], [timeLabels[0], timeLabels[length//4], timeLabels[length//2], timeLabels[length//4*3], "     Now          a"], fontproperties = prop)
 	plt.xlim([times[0], times[-1]])
 	legend = plt.legend(("Total players", "GMs"), prop = prop)
 	legend.get_frame().set_alpha(0.25)

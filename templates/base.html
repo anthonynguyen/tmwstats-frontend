@@ -1,0 +1,85 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>TMW Stats{% block title %}{% endblock %}</title>
+<style type="text/css">
+	@import url(http://fonts.googleapis.com/css?family=Open+Sans);
+	* {
+		margin: 0;
+		outline: 0;
+		padding: 0;
+	}
+	
+	body {
+		font-family: "Open Sans";
+	}
+	
+	#container {
+		-moz-box-sizing: border-box;
+		-webkit-box-sizing: border-box;
+		box-sizing: border-box;
+		left: 50%;
+		margin-left: -450px;
+		padding-top: 50px;
+		position: absolute;
+		width: 900px;
+	}
+	
+	#nav ul {
+		list-style-type: none;
+	}
+	
+	#nav ul li {
+		display: inline;
+		margin-right: 50px;
+	}
+	
+	#nav ul li a {
+		color: #222;
+		display: inline;
+		padding: 15px 50px;
+		text-decoration: none;
+	}
+	
+	#nav ul li a.active {
+		background: #b43c43;
+		color: #fff;
+	}
+	
+	#main {
+		margin-top: 30px;
+	}
+
+	#main img {
+		float: left;
+		margin-bottom: 25px;
+	}
+
+	.stat-block {
+		-moz-box-sizing: border-box;
+		-webkit-box-sizing: border-box;
+		box-sizing: border-box;
+		border: 1px solid red;
+		display: block;
+		float: left;
+		width: 300px;
+	}
+</style>
+</head>
+<body>
+<div id="container">
+	<div id="nav">
+		<ul>
+			<li><a class="nav {% block stats_active %}{% endblock %}" id="stats-nav" href="/">Stats</a></li>
+			<li><a class="nav {% block graphs_active %}{% endblock %}" id="graphs-nav" href="/graphs">Graphs</a></li>
+			<li><a class="nav {% block players_active %}{% endblock %}" id="players-nav" href="/players">Players</a></li>
+		</ul>
+	</div>
+	<div id="main">
+		{% block main %}{% endblock %}	
+	</div>
+</div>
+</body>
+</html>

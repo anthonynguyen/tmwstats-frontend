@@ -86,14 +86,26 @@ def getGraph(size, timeFrame, num):
 	except:
 		numHours = 3
 
-	title = "Number of players (last {} {})".format(num, timeFrame)
+	title = "Player count (last {} {})".format(num, timeFrame)
 	img = makeGraph(size, numHours, title)
 	return send_file(img, mimetype = "image/png")
 
 
 @app.route("/")
-def main():
-	return render_template("index.html")
+def stats():
+	return render_template("stats.html")
+
+@app.route("/graphs")
+def graphs():
+	return render_template("graphs.html")
+
+@app.route("/players")
+def players():
+	return render_template("players.html")
+
+@app.route("/search", methods = ["GET"])
+def search():
+	return render_template("search.html")
 
 if __name__ == "__main__":
 	app.run(host="0.0.0.0", port=5001, debug=True)

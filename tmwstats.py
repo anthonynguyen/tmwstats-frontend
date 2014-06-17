@@ -55,7 +55,7 @@ def makeGraph(size, hours, title):
 	length = len(counts)
 
 
-	timeLabels = [datetime.fromtimestamp(x).strftime('%H:%M\n%y/%m/%d') for x in times]
+	timeLabels = [datetime.fromtimestamp(x).strftime('%H:%M\n%Y-%m-%d') for x in times]
 	fig = plt.figure(figsize = (sizes[size][0], sizes[size][1]))
 	initGraphSystem()
 	plt.plot(times, counts, color = "#B43C3C", linestyle = "-")

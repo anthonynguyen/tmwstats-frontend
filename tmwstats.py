@@ -75,6 +75,44 @@ def makeGraph(size, hours, title):
 
 	return img
 
+def makeWeekdayGraph(size):
+	sizes = {
+		"big": (8, 4, 100),
+		"small": (6, 3, 75)
+	}
+
+	cursor = db_init.db["scans"].find()
+	days = [0] * 7
+	dayCount = [0] * 7
+	for r in cursor:
+		dt = datetime.fromtimestamp(r["time"])
+		days[dt.weekday()] += r["allplayers"]
+		dayCount[dt.weekday()] += 1
+	
+	for i, v in enumerate(days):
+		days[i] = v // dayCount[i];
+
+	days = days[-1:] + days[:-1]
+	daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+	fig = plt.figure(figsize = (sizes[size][0], sizes[size][1]))
+	initGraphSystem()
+	plt.plot(days, color = "#B43C3C", linestyle = "-")
+	plt.fill_between(list(range(7)), days, color = "#CC4444")
+	fig.suptitle("Average players by weekday", fontproperties = prop)
+	plt.xticks(list(range(7)), daysOfWeek, fontproperties = prop)
+	plt.xlim([0, 6])
+	img = io.BytesIO()
+	fig.savefig(img, dpi = sizes[size][2])
+	plt.close(fig)
+	img.seek(0)
+
+	return img
+
+@app.route("/weekdays")
+def weekdays():
+	return send_file(makeWeekdayGraph("big"), mimetype = "image/png")
+
+
 @app.route("/graph/<size>/<timeFrame>/<num>")
 def getGraph(size, timeFrame, num):
 	if size not in ["big", "small"]:

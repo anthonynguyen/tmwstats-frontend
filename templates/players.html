@@ -2,8 +2,22 @@
 {% if q %}{% block title %} - search: {{ searchQ }}{% endblock %}{% endif %}
 {% block players_active %}active{% endblock %}
 {% block main %}
+<p class="info">All times are displayed in EST</p>
 <form id="player-search" method="get" action="/players">
 	<input type="text" name="search" value="{{ searchQ }}" placeholder="Enter a player name to stalk"></input><input type="submit" value="Stalk!" />
 </form>
-{{ data }}
+{% if q %}
+{% if f %}
+<h1 id="pname">{{ name }}</h1>
+{% for card in info %}
+<div class="stat-block">
+<h3>{{ card[0] }}</h3>
+<h1>{{ card[1] }}</h1>
+<h3>{{ card[2] }}</h3>
+</div>
+{% endfor %}
+{% else %}
+No player found matching "{{ searchQ }}"
+{% endif %}
+{% endif %}
 {% endblock %}

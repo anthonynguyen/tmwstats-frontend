@@ -214,19 +214,25 @@ def graphs():
 @app.route("/players", methods=["GET"])
 def players():
 	searchQ = request.args.get("search")
-	if searchQ is not None:
+	if searchQ is not None and searchQ != "":
 		# search code
+		searchQ = searchQ.lower()
 		result = db_init.db["normals"].find({"charid": searchQ})
 		if result is None:
 			result = db_init.db["gms"].find({"charid": searchQ})
 		
 		if result.count() == 0:
 			f = False
-			data = "Player {} could not be found.".format(searchQ)
+			return render_template("players.html", q = True, searchQ = searchQ, f = f)
 		else:
 			f = True
+			infoCards = []
 			data = result[0]
-		return render_template("players.html", q = True, searchQ = searchQ, f = f, data = data)
+			infoCards.append(("Seen", data["sightings"], "times"))
+			lastSeen = datetime.fromtimestamp(data["last_seen"])
+			infoCards.append(("Last seen", lastSeen.strftime("%H:%M"), "on {}".format(lastSeen.strftime("%Y-%m-%d"))))
+			infoCards.append(("Total play time", "{}h".format(data["sightings"] * 15 / 60), "*estimated"))
+			return render_template("players.html", q = True, searchQ = searchQ, f = f, info = infoCards, name = data["charname"])
 	
 	#stats code
 	return render_template("players.html", searchQ = "")

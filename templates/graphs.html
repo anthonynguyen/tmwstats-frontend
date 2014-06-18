@@ -2,13 +2,17 @@
 {% block title %} - Graphs{% endblock %}
 {% block graphs_active %}active{% endblock %}
 {% block main %}
-<img src="/graph/small/hours/4" />
-<img src="/graph/small/hours/12" />
-<img src="/graph/small/hours/24" />
-<img src="/graph/small/days/3" />
-<img src="/graph/small/days/7" />
-<img src="/graph/small/weeks/2" />
-<img src="/graph/small/weeks/4" />
-<img src="/graph/small/months/3" />
-<p>Note: there was a two-week period at the beginning of May where data wasn't being collected</p>
+<p class="info">All times are displayed in EST</p>
+<p class="info">Note: there was a two-week period at the beginning of May where data wasn't being collected</p>
+<p class="info">Click on a graph to see a larger version of it</p>
+<a href="/weekdays/big"><img src="/weekdays/small" /></a>
+<a href="/hours/big"><img src="/hours/small" /></a>
+<!--<a href="/graph/big/hours/4"><img src="/graph/small/hours/4" /></a>-->
+<a href="/graph/big/hours/12"><img src="/graph/small/hours/12" /></a>
+<!--<a href="/graph/big/hours/24"><img src="/graph/small/hours/24" /></a>-->
+<!--<a href="/graph/big/days/3"><img src="/graph/small/days/3" /></a>-->
+<a href="/graph/big/days/7"><img src="/graph/small/days/7" /></a>
+<a href="/graph/big/weeks/2"><img src="/graph/small/weeks/2" /></a>
+<!--<a href="/graph/big/weeks/4"><img src="/graph/small/weeks/4" /></a>-->
+<a href="/graph/big/months/3"><img src="/graph/small/months/3" /></a>
 {% endblock %}

@@ -114,6 +114,44 @@ def weekdays(size):
 		size = "small"
 	return send_file(makeWeekdayGraph(size), mimetype = "image/png")
 
+def makeHourlyGraph(size):
+	sizes = {
+		"big": (8, 4, 100),
+		"small": (6, 3, 75)
+	}
+
+	cursor = db_init.db["scans"].find()
+	hours = [0] * 24
+	hourCount = [0] * 24
+	for r in cursor:
+		dt = datetime.fromtimestamp(r["time"])
+		hours[dt.hour] += r["allplayers"]
+		hourCount[dt.hour] += 1
+	
+	for i, v in enumerate(hours):
+		hours[i] = v // hourCount[i];
+
+	fig = plt.figure(figsize = (sizes[size][0], sizes[size][1]))
+	initGraphSystem()
+	plt.plot(list(range(24)), hours, color = "#B43C3C", linestyle = "-")
+	plt.fill_between(list(range(24)), hours, color = "#CC4444")
+	fig.suptitle("Average players by hour", fontproperties = prop)
+	plt.xticks(list(range(24)), list(range(24)), fontproperties = prop)
+	plt.xlim([0, 23])
+	img = io.BytesIO()
+	fig.savefig(img, dpi = sizes[size][2])
+	plt.close(fig)
+	img.seek(0)
+
+	return img
+
+@app.route("/hours/<size>")
+def hours(size):
+	if size not in ["big", "small"]:
+		size = "small"
+	return send_file(makeHourlyGraph(size), mimetype = "image/png")
+
+
 
 @app.route("/graph/<size>/<timeFrame>/<num>")
 def getGraph(size, timeFrame, num):

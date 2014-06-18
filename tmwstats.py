@@ -218,7 +218,7 @@ def players():
 		# search code
 		searchQ = searchQ.lower()
 		result = db_init.db["normals"].find({"charid": searchQ})
-		if result is None:
+		if result.count() == 0:
 			result = db_init.db["gms"].find({"charid": searchQ})
 		
 		if result.count() == 0:

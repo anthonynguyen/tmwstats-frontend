@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <title>TMW Stats{% block title %}{% endblock %}</title>
 <style type="text/css">
-	@import url(http://fonts.googleapis.com/css?family=Open+Sans);
+	@import url(http://fonts.googleapis.com/css?family=Roboto);
 	* {
 		margin: 0;
 		outline: 0;
@@ -13,7 +13,7 @@
 	}
 	
 	body {
-		font-family: "Open Sans";
+		font-family: "Roboto";
 	}
 	
 	#container {
@@ -61,10 +61,29 @@
 		-moz-box-sizing: border-box;
 		-webkit-box-sizing: border-box;
 		box-sizing: border-box;
+		background: #b43c43;
 		border: 1px solid red;
+		color: #fff;
 		display: block;
 		float: left;
-		width: 300px;
+		height: 220px;
+		margin: 20px 25px;
+		padding: 20px;
+		text-align: center;
+		width: 240px;
+	}
+
+	.stat-block h1, .stat-block h3 {
+		font-weight: normal;
+	}
+
+	.stat-block h1 {
+		background: rgba(255,255,255,0.75);
+		color: #b43c43;
+		display: inline-block;
+		margin-bottom: 20px;
+		margin-top: 20px;
+		padding: 15px 30px;
 	}
 </style>
 </head>

@@ -1,8 +1,13 @@
 {% extends "base.html" %}
 {% block stats_active %}active{% endblock %}
 {% block main %}
-<div id="avg-players" class="stat-block"><h3>Average players:<h3><h1>42</h1></div>
-<div id="avg-players" class="stat-block"><h3>Average players:<h3><h1>42</h1></div>
-<div id="avg-players" class="stat-block"><h3>Average players:<h3><h1>42</h1></div>
-
+<div class="stat-block"><h3>Number of scans</h3><h1>{{ stats["numScans"] }}</h1></div>
+<div class="stat-block"><h3>Last scan</h3><h1>~{{ stats["lastScan"] }}</h1><h3>minutes ago</h3></div>
+<div class="stat-block"><h3>Total players seen</h3><h1>{{ stats["totalSeen"] }}</h1></div>
+<div class="stat-block"><h3>Average players<h3><h1>{{ stats["avgPlayerCount"] }}</h1></div>
+<div class="stat-block"><h3>Most players<h3><h1>{{ stats["maxPlayerCount"][0] }}</h1><h3>on {{ stats["maxPlayerCount"][1] }}</h3></div>
+<div class="stat-block"><h3>Fewest players</h3><h1>{{ stats["minPlayerCount"][0] }}</h1><h3>on {{ stats["minPlayerCount"][1] }}</h3></div>
+<div class="stat-block"><h3>Average GM count</h3><h1>{{ stats["avgGMCount"] }}</h1></div>
+<div class="stat-block"><h3>Most GMs</h3><h1>{{ stats["maxGMCount"][0] }}</h1><h3>on {{ stats["maxGMCount"][1] }}</h3></div>
+<div class="stat-block"><h3>GM availability</h3><h1>{{ stats["GMAvailability"] }}%</h1></div>
 {% endblock %}

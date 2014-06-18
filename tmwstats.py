@@ -93,7 +93,44 @@ def getGraph(size, timeFrame, num):
 
 @app.route("/")
 def stats():
-	return render_template("stats.html")
+	result = db_init.db["scans"].aggregate([{"$group": {"_id": "$y", "mean": {"$avg": "$allplayers"}}}])
+	avgPlayerCount = result["result"][0]["mean"]
+	result = db_init.db["scans"].find().sort([("allplayers", -1)]).limit(1)[0]
+	maxPlayerCount = result["allplayers"]
+	maxPlayerTime = datetime.fromtimestamp(result["time"]).strftime("%Y-%m-%d")
+
+	result = db_init.db["scans"].find().sort([("allplayers", 1)]).limit(1)[0]
+	minPlayerCount = result["allplayers"]
+	minPlayerTime = datetime.fromtimestamp(result["time"]).strftime("%Y-%m-%d")
+
+	numScans = db_init.db["scans"].count()
+
+	result = db_init.db["scans"].find().sort([("time", -1)]).limit(1)[0]
+	curtime = time.time()
+	lastScan = round((curtime - result["time"]) / 60)
+
+	result = db_init.db["scans"].aggregate([{"$group": {"_id": "$y", "mean": {"$avg": "$gms"}}}])
+	avgGMCount = result["result"][0]["mean"]
+
+	result = db_init.db["scans"].find().sort([("gms", -1)]).limit(1)[0]
+	maxGMCount = result["gms"]
+	maxGMTime = datetime.fromtimestamp(result["time"]).strftime("%Y-%m-%d")
+
+	result = db_init.db["scans"].find({"gms": {"$gt": 0}})
+	GMAvailability = round(result.count() / numScans * 100, 1)
+
+	statDict = {
+		"avgPlayerCount": round(avgPlayerCount),
+		"maxPlayerCount": [maxPlayerCount, maxPlayerTime],
+		"minPlayerCount": [minPlayerCount, minPlayerTime],
+		"lastScan": lastScan,
+		"numScans": numScans,
+		"totalSeen": db_init.db["normals"].count() + db_init.db["gms"].count(),
+		"avgGMCount": round(avgGMCount),
+		"maxGMCount": [maxGMCount, maxGMTime],
+		"GMAvailability": GMAvailability
+	}
+	return render_template("stats.html", stats = statDict)
 
 @app.route("/graphs")
 def graphs():

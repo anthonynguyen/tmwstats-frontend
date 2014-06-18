@@ -69,6 +69,7 @@ def makeGraph(size, hours, title):
 	legend.get_frame().set_alpha(0.25)
 	img = io.BytesIO()
 	fig.savefig(img, dpi = sizes[size][2])
+	plt.close(fig)
 	img.seek(0)
 
 	return img

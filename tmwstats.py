@@ -99,10 +99,6 @@ def stats():
 	maxPlayerCount = result["allplayers"]
 	maxPlayerTime = datetime.fromtimestamp(result["time"]).strftime("%Y-%m-%d")
 
-	result = db_init.db["scans"].find().sort([("allplayers", 1)]).limit(1)[0]
-	minPlayerCount = result["allplayers"]
-	minPlayerTime = datetime.fromtimestamp(result["time"]).strftime("%Y-%m-%d")
-
 	numScans = db_init.db["scans"].count()
 
 	result = db_init.db["scans"].find().sort([("time", -1)]).limit(1)[0]
@@ -122,7 +118,6 @@ def stats():
 	statDict = {
 		"avgPlayerCount": round(avgPlayerCount),
 		"maxPlayerCount": [maxPlayerCount, maxPlayerTime],
-		"minPlayerCount": [minPlayerCount, minPlayerTime],
 		"lastScan": lastScan,
 		"numScans": numScans,
 		"totalSeen": db_init.db["normals"].count() + db_init.db["gms"].count(),
@@ -145,4 +140,4 @@ def search():
 	return render_template("search.html")
 
 if __name__ == "__main__":
-	app.run(host="0.0.0.0", port=5001, debug=True)
+	app.run(host="0.0.0.0", port=5001, debug=False)

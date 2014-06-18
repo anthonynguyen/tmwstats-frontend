@@ -62,11 +62,10 @@
 		-webkit-box-sizing: border-box;
 		box-sizing: border-box;
 		background: #b43c43;
-		border: 1px solid red;
 		color: #fff;
 		display: block;
 		float: left;
-		height: 220px;
+		height: 200px;
 		margin: 20px 25px;
 		padding: 20px;
 		text-align: center;
@@ -84,6 +83,37 @@
 		margin-bottom: 20px;
 		margin-top: 20px;
 		padding: 15px 30px;
+	}
+
+	#player-search {
+		text-align: center;
+	}
+
+	input {
+		border: 1px solid #ccc;
+		font-family: "Roboto";
+		font-size: 0.9em;
+		padding: 8px;
+	}
+
+	input:focus, input:active {
+		border: 1px solid #b43c43;
+	}
+
+	input[type=text] {
+		border-right: 0;
+		width: 300px;
+	}
+
+	input[type=submit] {
+		background: #fff;
+		border: 1px solid #b43c43;
+		padding: 8px 10px;
+	}
+
+	input[type=submit]:active {
+		background: #b43c43;
+		color: #fff;
 	}
 </style>
 </head>

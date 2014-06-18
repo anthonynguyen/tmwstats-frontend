@@ -1,6 +1,7 @@
 from datetime import datetime
 from flask import Flask
 from flask import render_template
+from flask import request
 from flask import send_file
 import io
 import time 
@@ -132,13 +133,25 @@ def stats():
 def graphs():
 	return render_template("graphs.html")
 
-@app.route("/players")
+@app.route("/players", methods=["GET"])
 def players():
-	return render_template("players.html")
-
-@app.route("/search", methods = ["GET"])
-def search():
-	return render_template("search.html")
+	searchQ = request.args.get("search")
+	if searchQ is not None:
+		# search code
+		result = db_init.db["normals"].find({"charid": searchQ})
+		if result is None:
+			result = db_init.db["gms"].find({"charid": searchQ})
+		
+		if result.count() == 0:
+			f = False
+			data = "Player {} could not be found.".format(searchQ)
+		else:
+			f = True
+			data = result[0]
+		return render_template("players.html", q = True, searchQ = searchQ, f = f, data = data)
+	
+	#stats code
+	return render_template("players.html", searchQ = "")
 
 if __name__ == "__main__":
 	app.run(host="0.0.0.0", port=5001, debug=False)

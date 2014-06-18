@@ -1,5 +1,9 @@
 {% extends "base.html" %}
+{% if q %}{% block title %} - search: {{ searchQ }}{% endblock %}{% endif %}
 {% block players_active %}active{% endblock %}
 {% block main %}
-Player search coming later
+<form id="player-search" method="get" action="/players">
+	<input type="text" name="search" value="{{ searchQ }}" placeholder="Enter a player name to stalk"></input><input type="submit" value="Stalk!" />
+</form>
+{{ data }}
 {% endblock %}

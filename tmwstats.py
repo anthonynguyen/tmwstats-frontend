@@ -93,10 +93,10 @@ def makeWeekdayGraph(size):
 		days[i] = v // dayCount[i];
 
 	days = days[-1:] + days[:-1]
-	daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+	daysOfWeek = ["Sun", "Mon", "Tues", "Wed", "Thurs", "Fri", "Sat"]
 	fig = plt.figure(figsize = (sizes[size][0], sizes[size][1]))
 	initGraphSystem()
-	plt.plot(days, color = "#B43C3C", linestyle = "-")
+	plt.plot(list(range(7)), days, color = "#B43C3C", linestyle = "-")
 	plt.fill_between(list(range(7)), days, color = "#CC4444")
 	fig.suptitle("Average players by weekday", fontproperties = prop)
 	plt.xticks(list(range(7)), daysOfWeek, fontproperties = prop)
@@ -108,9 +108,11 @@ def makeWeekdayGraph(size):
 
 	return img
 
-@app.route("/weekdays")
-def weekdays():
-	return send_file(makeWeekdayGraph("big"), mimetype = "image/png")
+@app.route("/weekdays/<size>")
+def weekdays(size):
+	if size not in ["big", "small"]:
+		size = "small"
+	return send_file(makeWeekdayGraph(size), mimetype = "image/png")
 
 
 @app.route("/graph/<size>/<timeFrame>/<num>")

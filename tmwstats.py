@@ -135,7 +135,7 @@ def makeHourlyGraph(size):
 	initGraphSystem()
 	plt.plot(list(range(24)), hours, color = "#B43C3C", linestyle = "-")
 	plt.fill_between(list(range(24)), hours, color = "#CC4444")
-	fig.suptitle("Average players by hour", fontproperties = prop)
+	fig.suptitle("Average players by time of day", fontproperties = prop)
 	plt.xticks(list(range(24)), list(range(24)), fontproperties = prop)
 	plt.xlim([0, 23])
 	img = io.BytesIO()

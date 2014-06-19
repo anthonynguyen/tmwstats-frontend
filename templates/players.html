@@ -2,7 +2,7 @@
 {% if q %}{% block title %} - search: {{ searchQ }}{% endblock %}{% endif %}
 {% block players_active %}active{% endblock %}
 {% block main %}
-<p class="info">All times are displayed in EST</p>
+<p class="info">All times are displayed in UTC</p>
 <form id="player-search" method="get" action="/players">
 	<input type="text" name="search" value="{{ searchQ }}" placeholder="Enter a player name to stalk"></input><input type="submit" value="Stalk!" />
 </form>

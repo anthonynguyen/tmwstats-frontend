@@ -56,7 +56,7 @@ def makeGraph(size, hours, title):
 	length = len(counts)
 
 
-	timeLabels = [datetime.fromtimestamp(x).strftime('%H:%M\n%Y-%m-%d') for x in times]
+	timeLabels = [datetime.utcfromtimestamp(x).strftime('%H:%M\n%Y-%m-%d') for x in times]
 	fig = plt.figure(figsize = (sizes[size][0], sizes[size][1]))
 	initGraphSystem()
 	plt.plot(times, counts, color = "#B43C3C", linestyle = "-")
@@ -85,7 +85,7 @@ def makeWeekdayGraph(size):
 	days = [0] * 7
 	dayCount = [0] * 7
 	for r in cursor:
-		dt = datetime.fromtimestamp(r["time"])
+		dt = datetime.utcfromtimestamp(r["time"])
 		days[dt.weekday()] += r["allplayers"]
 		dayCount[dt.weekday()] += 1
 	
@@ -124,7 +124,7 @@ def makeHourlyGraph(size):
 	hours = [0] * 24
 	hourCount = [0] * 24
 	for r in cursor:
-		dt = datetime.fromtimestamp(r["time"])
+		dt = datetime.utcfromtimestamp(r["time"])
 		hours[dt.hour] += r["allplayers"]
 		hourCount[dt.hour] += 1
 	
@@ -177,7 +177,7 @@ def stats():
 	avgPlayerCount = result["result"][0]["mean"]
 	result = db_init.db["scans"].find().sort([("allplayers", -1)]).limit(1)[0]
 	maxPlayerCount = result["allplayers"]
-	maxPlayerTime = datetime.fromtimestamp(result["time"]).strftime("%Y-%m-%d")
+	maxPlayerTime = datetime.utcfromtimestamp(result["time"]).strftime("%Y-%m-%d")
 
 	numScans = db_init.db["scans"].count()
 
@@ -190,7 +190,7 @@ def stats():
 
 	result = db_init.db["scans"].find().sort([("gms", -1)]).limit(1)[0]
 	maxGMCount = result["gms"]
-	maxGMTime = datetime.fromtimestamp(result["time"]).strftime("%Y-%m-%d")
+	maxGMTime = datetime.utcfromtimestamp(result["time"]).strftime("%Y-%m-%d")
 
 	result = db_init.db["scans"].find({"gms": {"$gt": 0}})
 	GMAvailability = round(result.count() / numScans * 100, 1)
@@ -229,7 +229,7 @@ def players():
 			infoCards = []
 			data = result[0]
 			infoCards.append(("Seen", data["sightings"], "times"))
-			lastSeen = datetime.fromtimestamp(data["last_seen"])
+			lastSeen = datetime.utcfromtimestamp(data["last_seen"])
 			infoCards.append(("Last seen", lastSeen.strftime("%H:%M"), "on {}".format(lastSeen.strftime("%Y-%m-%d"))))
 			infoCards.append(("Total play time", "{}h".format(data["sightings"] * 15 / 60), "*estimated"))
 			return render_template("players.html", q = True, searchQ = searchQ, f = f, info = infoCards, name = data["charname"])

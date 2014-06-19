@@ -229,7 +229,7 @@ def players():
 			infoCards = []
 			data = result[0]
 			infoCards.append(("Seen", data["sightings"], "times"))
-			lastSeen = datetime.utcfromtimestamp(data["last_seen"])
+			lastSeen = datetime.utcfromtimestamp(data["time"])
 			infoCards.append(("Last seen", lastSeen.strftime("%H:%M"), "on {}".format(lastSeen.strftime("%Y-%m-%d"))))
 			infoCards.append(("Total play time", "{}h".format(data["sightings"] * 15 / 60), "*estimated"))
 			return render_template("players.html", q = True, searchQ = searchQ, f = f, info = infoCards, name = data["charname"])
